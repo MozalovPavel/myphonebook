@@ -8,7 +8,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="item in phonebook track by $index">
+            <tr ng-repeat="item in phonebook | objectFilter:filterString track by $index">
                 <td ng-bind="item.name"></td>
                 <td ng-bind="item.phone"></td>
                 <td ng-bind="item.email"></td>

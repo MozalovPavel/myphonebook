@@ -3,7 +3,6 @@ app.service('phonebookFactory', function () {
         //   localStorage.clear();
           var stringPhonebook = localStorage.getItem('phonebook') || '[]';
 
-          console.log(JSON.parse(stringPhonebook));
           return JSON.parse(stringPhonebook);
       };
       this.setPhonebook = function (phonebook) {

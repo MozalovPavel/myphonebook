@@ -1,9 +1,10 @@
-app.directive('phonebookTable', function () {
+app.directive('phonebookTable',  function () {
     return {
         templateUrl: '../views/phonebookTable.html',
         restrict: 'E',
         scope:{
-            phonebook: '='
+            phonebook: '=',
+            filterString: '='
         },
         link: function(scope, element, attrs) {
 
