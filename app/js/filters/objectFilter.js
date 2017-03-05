@@ -4,9 +4,6 @@ app.filter('objectFilter', function () {
             return list;
         }
 
-        // console.log(list);
-        console.log(filterString);
-
         return list.filter(function (item) {
             var keys = Object.keys(item);
             return keys.some(function (key) {

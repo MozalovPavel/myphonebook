@@ -17,6 +17,7 @@ app.directive('addForm', function () {
                     };
                     scope.formSubmit(newContact);
                     scope.refreshForm();
+                    scope.isSuccessAdd = true;
                 }
             };
 
@@ -25,6 +26,8 @@ app.directive('addForm', function () {
                 scope.phone = '';
                 scope.email = '';
             };
+
+            scope.isSuccessAdd = false;
         }
     };
 });

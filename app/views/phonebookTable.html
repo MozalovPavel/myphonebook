@@ -2,13 +2,35 @@
     <table class="table table-bordered">
         <thead>
             <tr>
-                <th>ФИО</th>
-                <th>Телефон</th>
-                <th>Email</th>
+                <th>
+                    <span ng-click="sortBy('name')" ng-show="sortData.property === 'name'"
+                    ng-class="{'fa-caret-down': !sortData.reverse, 'fa-caret-up': sortData.reverse}">
+                    </span>
+                    <span ng-click="sortBy('name')">
+                        ФИО
+                    </span>
+                </th>
+                <th>
+                    <span ng-click="sortBy('phone')" ng-show="sortData.property=== 'phone'"
+                    ng-class="{'fa-caret-down': !sortData.reverse, 'fa-caret-up': sortData.reverse}">
+                    </span>
+                    <span ng-click="sortBy('phone')">
+                        Телефон
+                    </span>
+                </th>
+                <th>
+                    <span ng-click="sortBy('email')" ng-show="sortData.property === 'email'"
+                    ng-class="{'fa-caret-down': !sortData.reverse, 'fa-caret-up': sortData.reverse}">
+                    </span>
+                    <span ng-click="sortBy('email')">
+                        Email
+                    </span>
+                </th>
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="item in phonebook | objectFilter:filterString track by $index">
+            <tr ng-repeat="item in phonebook | objectFilter : filterString | orderBy : sortData.property : sortData.reverse
+            track by $index">
                 <td ng-bind="item.name"></td>
                 <td ng-bind="item.phone"></td>
                 <td ng-bind="item.email"></td>

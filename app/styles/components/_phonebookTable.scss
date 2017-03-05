@@ -1,4 +1,27 @@
 .phonebookTable
 {
-    
+    & table,
+    thead > tr > th,
+    tbody > tr > th,
+    tfoot > tr > th,
+    thead > tr > td,
+    tbody > tr > td,
+    tfoot > tr > td
+    {
+        border-color: #111;
+    }
+
+    & thead tr
+    {
+        background: $phonebookHead;
+    }
+
+    & tbody tr:nth-child(even)
+    {
+        background: $phonebookTableField;
+    }
+    & th span
+    {
+        cursor: pointer;
+    }
 }
