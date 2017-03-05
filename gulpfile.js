@@ -14,23 +14,19 @@ var sass = require('gulp-sass');
 var src = {
 	scss: './app/styles/style.scss',
 	scss_dest: 'app/styles',
-	scss_watch: 'app/components/**/*.scss',
+	scss_watch: 'app/styles/components/*.scss',
 	index_watch: 'app/index.html',
-	html_watch: 'app/components/**/*.html',
+	html_watch: 'app/views/*.html',
 	js_watch: 'app/js/**/*.js'
 };
 
 // tasks
 gulp.task('lint', function() {
-  	gulp.src(['./app/**/*.js', '!./bower_components/**'])
+  	gulp.src(['./app/**/*.js', '!./app/bower_components/**'])
     	.pipe(jshint())
 		.pipe(jshint.reporter('default'))
 		.pipe(jshint.reporter('fail'));
 });
-// gulp.task('clean', function() {
-//     gulp.src('./dist')
-//       .pipe(clean({force: true}));
-// });
 gulp.task('clean', function() {
 	return gulp.src('./dist', {read: false})
         .pipe(clean());
@@ -38,30 +34,22 @@ gulp.task('clean', function() {
 
 gulp.task('minify-css', function() {
   	var opts = {comments:true,spare:true};
-  	gulp.src(['./app/**/*.css', '!./bower_components/**'])
+  	gulp.src(['./app/styles/style.css', '!./app/bower_components/**'])
     	.pipe(minifyCSS(opts))
     	.pipe(gulp.dest('./dist/'))
 });
 gulp.task('minify-js', function() {
-  	gulp.src(['./app/**/*.js', '!./bower_components/**'])
+  	gulp.src(['./app/**/*.js', '!./app/bower_components/**'])
 		.pipe(uglify())
     	.pipe(gulp.dest('./dist/'))
 });
 gulp.task('copy-bower-components', function () {
-  	gulp.src('./bower_components/**')
+  	gulp.src('./app/bower_components/**')
     	.pipe(gulp.dest('dist/bower_components'));
 });
 gulp.task('copy-html-files', function () {
   	gulp.src('./app/**/*.html')
     	.pipe(gulp.dest('dist/'));
-});
-// gulp.task('copy-json-file', function () {
-//   gulp.src('./app/*.json')
-//     .pipe(gulp.dest('dist/'));
-// });
-gulp.task('copy-fonts', function () {
-  	gulp.src('./app/fonts/**')
-    	.pipe(gulp.dest('dist/fonts'));
 });
 gulp.task('connect', function () {
   	connect.server({
@@ -112,7 +100,7 @@ gulp.task('default', ['lint', 'watch', 'connect']);
 gulp.task('build', function() {
   runSequence(
 	'clean',
-    ['lint', 'minify-css', 'minify-js', 'copy-html-files', 'copy-bower-components', 'copy-json-file', 'copy-fonts'],
+    ['lint', 'minify-css', 'minify-js', 'copy-html-files', 'copy-bower-components'],
 	'connectDist'
   );
 });

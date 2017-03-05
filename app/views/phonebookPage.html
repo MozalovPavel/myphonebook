@@ -1,0 +1,13 @@
+
+<article class="container">
+    <header class="filterHeader">
+        <div class="filterHeader__inputContainer">
+            <input class="form-control " type="text" name="search" placeholder="Фильтр">
+        </div>
+        <div class="filterHeader__btnContainer pull-right">
+            <button class="btn btn-primary" ng-click="switchAddForm()" name="addBtn">Добавить</button>
+        </div>
+    </header>
+    <phonebook-table phonebook="phonebook"></phonebook-table>
+    <add-form ng-show="isOpenAddForm" form-close="switchAddForm" form-submit="addRecord"></add-form>
+</article>

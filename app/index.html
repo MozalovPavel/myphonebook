@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="AutocomleteAplication">
+<html ng-app="phonebookAplication">
     <head lang="en">
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,13 +7,13 @@
         <meta name="author" content="">
         <title>Phonebook</title>
         <!-- styles -->
-        <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.css"/>
-        <link rel="stylesheet" href="../bower_components/animate.css/animate.css"/>
+        <link rel="stylesheet" href="./bower_components/bootstrap/dist/css/bootstrap.css"/>
+        <link rel="stylesheet" href="./bower_components/animate.css/animate.css"/>
         <link rel="stylesheet" href="styles/style.css"/>
     </head>
     <body>
-        <header>
-            Телефонная книга
+        <header class="container">
+            <h1 class="header__title">Телефонная книга</h1>
         </header>
         <main>
               <!-- views -->
@@ -27,6 +27,11 @@
         <script src="../bower_components/angular-animate/angular-animate.js"></script>
         <script src="../bower_components/bootstrap/dist/js/bootstrap.js"></script>
         <script src="js/app.js"></script>
+        <script src="js/routes.js"></script>
+        <script src="js/controllers/phonebookPage.js"></script>
+        <script src="js/directives/addForm.js"></script>
+        <script src="js/directives/phonebookTable.js"></script>
+        <script src="js/services/phonebookFactory.js"></script>
 
     </body>
 </html>

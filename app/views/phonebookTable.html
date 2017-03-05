@@ -1,0 +1,18 @@
+<div class="phonebookTable table-responsive">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>ФИО</th>
+                <th>Телефон</th>
+                <th>Email</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="item in phonebook track by $index">
+                <td ng-bind="item.name"></td>
+                <td ng-bind="item.phone"></td>
+                <td ng-bind="item.email"></td>
+            </tr>
+        </tbody>
+    </table>
+</div>

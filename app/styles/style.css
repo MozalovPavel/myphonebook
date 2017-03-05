@@ -2,3 +2,43 @@ body,
 html {
   margin: 0;
   padding: 0; }
+
+.add-form__container {
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%; }
+
+.add-form {
+  border: 1px solid #e1e1e1;
+  border-radius: 5px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #fff;
+  padding: 20px; }
+
+.add-form__btn-group {
+  margin: 20px 0 0 0; }
+
+.add-form__input_error {
+  border-color: #FF5858;
+  box-shadow: 0 0 7px #FF5858; }
+
+.header__title {
+  text-align: center; }
+
+.filterHeader {
+  margin: 10px 0;
+  display: block; }
+
+.filterHeader__inputContainer,
+.filterHeader__btnContainer {
+  display: inline-block; }
+
+.btn {
+  padding: 6px 20px; }
