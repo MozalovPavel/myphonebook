@@ -51,10 +51,8 @@ html {
 .filterHeader {
   margin: 10px 0;
   display: block; }
-
-.filterHeader__inputContainer,
-.filterHeader__btnContainer {
-  display: inline-block; }
+  .filterHeader__inputContainer, .filterHeader__btnContainer {
+    display: inline-block; }
 
 .btn {
   padding: 6px 20px; }

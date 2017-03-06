@@ -9,6 +9,9 @@ var minifyCSS = require('gulp-minify-css');
 var clean = require('gulp-clean');
 var runSequence = require('run-sequence');
 var sass = require('gulp-sass');
+var autoprefixer = require('autoprefixer');
+var cssnano = require('cssnano');
+var	postcss = require('gulp-postcss');
 
 
 var src = {
@@ -34,9 +37,14 @@ gulp.task('clean', function() {
 
 gulp.task('minify-css', function() {
   	var opts = {comments:true,spare:true};
+	var processors = [
+    	autoprefixer({browsers: ['> 1%']}),
+    	cssnano(),
+	];
   	gulp.src(['./app/styles/style.css', '!./app/bower_components/**'])
-    	.pipe(minifyCSS(opts))
-    	.pipe(gulp.dest('./dist/'))
+		.pipe(postcss(processors))
+		.pipe(minifyCSS(opts))
+    	.pipe(gulp.dest('./dist/styles/'))
 });
 gulp.task('minify-js', function() {
   	gulp.src(['./app/**/*.js', '!./app/bower_components/**'])
@@ -50,6 +58,10 @@ gulp.task('copy-bower-components', function () {
 gulp.task('copy-html-files', function () {
   	gulp.src('./app/**/*.html')
     	.pipe(gulp.dest('dist/'));
+});
+gulp.task('copy-fonts', function () {
+  	gulp.src('./app/fonts/**')
+    	.pipe(gulp.dest('dist/fonts'));
 });
 gulp.task('connect', function () {
   	connect.server({
@@ -92,15 +104,13 @@ gulp.task('watch', function() {
 	gulp.watch([src.js_watch], ['watch-js']);
 });
 
-
-
 // default task
 gulp.task('default', ['lint', 'watch', 'connect']);
 
 gulp.task('build', function() {
-  runSequence(
-	'clean',
-    ['lint', 'minify-css', 'minify-js', 'copy-html-files', 'copy-bower-components'],
-	'connectDist'
-  );
+	runSequence(
+		'clean',
+		['lint', 'minify-css', 'minify-js', 'copy-html-files', 'copy-fonts', 'copy-bower-components'],
+		'connectDist'
+	);
 });
