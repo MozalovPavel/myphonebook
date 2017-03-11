@@ -14,18 +14,33 @@ var cssnano = require('cssnano');
 var	postcss = require('gulp-postcss');
 
 
-var src = {
-	scss: './app/styles/style.scss',
-	scss_dest: 'app/styles',
-	scss_watch: 'app/styles/components/*.scss',
-	index_watch: 'app/index.html',
-	html_watch: 'app/views/*.html',
-	js_watch: 'app/js/**/*.js'
+var path = {
+	src: {
+		scss: './app/styles/style.scss',
+		js: './app/js/**/*.js',
+		css: './app/styles/style.css',
+		bower_components: './app/bower_components/**',
+		html: './app/**/*.html',
+		fonts: './app/fonts/**'
+	},
+	dest: {
+		scss: 'app/styles',
+		css: './dist/styles/',
+		bower_components: 'dist/bower_components',
+		fonts: 'dist/fonts',
+		js: './dist/js'
+	},
+	watch: {
+		scss: 'app/styles/components/*.scss',
+		index: 'app/index.html',
+		html: 'app/views/*.html',
+		js: 'app/js/**/*.js'
+	}
 };
 
 // tasks
 gulp.task('lint', function() {
-  	gulp.src(['./app/**/*.js', '!./app/bower_components/**'])
+  	gulp.src(path.src.js)
     	.pipe(jshint())
 		.pipe(jshint.reporter('default'))
 		.pipe(jshint.reporter('fail'));
@@ -37,31 +52,26 @@ gulp.task('clean', function() {
 
 gulp.task('minify-css', function() {
   	var opts = {comments:true,spare:true};
-	var processors = [
-    	autoprefixer({browsers: ['> 1%']}),
-    	cssnano(),
-	];
-  	gulp.src(['./app/styles/style.css', '!./app/bower_components/**'])
-		.pipe(postcss(processors))
+  	gulp.src(path.src.css)
 		.pipe(minifyCSS(opts))
-    	.pipe(gulp.dest('./dist/styles/'))
+    	.pipe(gulp.dest(path.dest.css))
 });
 gulp.task('minify-js', function() {
-  	gulp.src(['./app/**/*.js', '!./app/bower_components/**'])
+  	gulp.src(path.src.js)
 		.pipe(uglify())
-    	.pipe(gulp.dest('./dist/'))
+    	.pipe(gulp.dest(path.dest.js))
 });
 gulp.task('copy-bower-components', function () {
-  	gulp.src('./app/bower_components/**')
-    	.pipe(gulp.dest('dist/bower_components'));
+  	gulp.src(path.src.bower_components)
+    	.pipe(gulp.dest(path.dest.bower_components));
 });
 gulp.task('copy-html-files', function () {
-  	gulp.src('./app/**/*.html')
+  	gulp.src(path.src.html)
     	.pipe(gulp.dest('dist/'));
 });
 gulp.task('copy-fonts', function () {
-  	gulp.src('./app/fonts/**')
-    	.pipe(gulp.dest('dist/fonts'));
+  	gulp.src(path.src.fonts)
+    	.pipe(gulp.dest(path.dest.fonts));
 });
 gulp.task('connect', function () {
   	connect.server({
@@ -78,30 +88,33 @@ gulp.task('connectDist', function () {
 });
 
 gulp.task('watch-sass', function () {
-    gulp.src(src.scss)
+	var processors = [
+    	autoprefixer({browsers: ['> 1%']})
+	];
+    gulp.src(path.src.scss)
         .pipe(sass().on('error', sass.logError))
-        .pipe(gulp.dest(src.scss_dest))
+		.pipe(postcss(processors))
+        .pipe(gulp.dest(path.dest.scss))
 		.pipe(connect.reload());
 });
 gulp.task('watch-html', function() {
-	gulp.src(src.html_watch)
+	gulp.src(path.watch.html)
 		.pipe(connect.reload());
 });
 gulp.task('watch-index', function() {
-	gulp.src(src.index_watch)
+	gulp.src(path.watch.index)
 		.pipe(connect.reload());
 });
 gulp.task('watch-js', function() {
-	gulp.src(src.js_watch)
+	gulp.src(path.watch.js)
 		.pipe(connect.reload());
 });
 
-
 gulp.task('watch', function() {
-	gulp.watch([src.scss_watch], ['watch-sass']);
-	gulp.watch([src.html_watch], ['watch-html']);
-	gulp.watch([src.index_watch], ['watch-index']);
-	gulp.watch([src.js_watch], ['watch-js']);
+	gulp.watch([path.watch.scss], ['watch-sass']);
+	gulp.watch([path.watch.html], ['watch-html']);
+	gulp.watch([path.watch.index], ['watch-index']);
+	gulp.watch([path.watch.js], ['watch-js']);
 });
 
 // default task
